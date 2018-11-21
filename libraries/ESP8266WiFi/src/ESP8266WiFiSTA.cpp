@@ -149,6 +149,9 @@ wl_status_t ESP8266WiFiSTAClass::begin(const char* ssid, const char *passphrase,
     }
 
     if(sta_config_equal(conf_compare, conf)) {
+        if (status() == WL_CONNECTED) {
+            connect = false; // make sure not to reconnect if allready connected with the same config
+        }
         DEBUGV("sta config unchanged");
     }
     else {
